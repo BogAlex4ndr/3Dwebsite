@@ -18,6 +18,7 @@ const Customizer = () => {
   const [generatingImg, setgeneratingImg] = useState(false);
   const [activeEditorTab, setactiveEditorTab] = useState('');
   const [activeFilterTab, setactiveFilterTab] = useState({ logoShirt: true, stylishShirt: false });
+  const [open, setOpen] = useState(true);
 
   const generateTabContent = () => {
     switch (activeEditorTab) {
@@ -46,9 +47,9 @@ const Customizer = () => {
     try {
       setgeneratingImg(true);
 
-      const response = await fetch('http://localhost:8080/api/v1/dalle', {
+      const response = await fetch('https://threejs-server.onrender.com/api/v1/dalle', {
         method: 'POST',
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
       });
 
@@ -114,7 +115,17 @@ const Customizer = () => {
                     key={tab.name}
                     tab={tab}
                     handleClick={() => {
-                      setactiveEditorTab(tab.name);
+                      if (open === true) {
+                        setactiveEditorTab(tab.name);
+                        setOpen(false);
+                      }
+                      if (open === false && tab.name === activeEditorTab) {
+                        setactiveEditorTab('');
+                        setOpen(true);
+                      }
+                      if (tab.name !== activeEditorTab) {
+                        setactiveEditorTab(tab.name);
+                      }
                     }}
                   />
                 ))}

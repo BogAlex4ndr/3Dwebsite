@@ -1,2 +1,2 @@
-
-https://wonderful-cranachan-0ffde5.netlify.app
+DEMO
+https://t-shirt-customizer3d.netlify.app
